@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&display=swap" rel="stylesheet">
+    {% block styles %} {% endblock %}
+</head>
+<body class="all">
+    <nav class="head-space">
+      <a href="{{ url_for('index') }}">Главная</a>
+        {% if g.user %}
+            <a href="{{ url_for('account') }}">Личный Кабинет ({{ g.user['login'] }})</a>
+        {% else %}
+            <a href="{{ url_for('login') }}">Войти</a>
+            <a href="{{ url_for('register') }}">Регистрация</a>
+        {% endif %}
+  </nav>
+  {% block body %} {% endblock %}
+</body>
+</html>

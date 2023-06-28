@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+
+{% block title %}Войти{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+{% endblock %}
+
+{% block body %}
+<main>
+    <div class="form login-form" >
+         <h1 class="form-heading">Вход</h1>
+        <form action="{{ url_for('login') }}" method="post">
+        <p class="error"> {{ errors['form'] }} </p>
+
+        <div class="form-group">
+            <label for="login">Логин:</label></br>
+            <input type="text" class="form-input" name="login" id="login" required>
+            <p class="error">{{ errors['login'] }}</p>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Пароль:</label>
+            <input type="password" class="form-input" name="password" id="password" required>
+            <p class="error">{{ errors['password'] }}</p>
+        </div>
+
+        <button type="submit"  class="form-submit" >Войти</button>
+        <div><a href="{{ url_for('register') }}">Нет аккаунта?</a></div>
+
+    </form>
+    </div>
+
+</main>
+{% endblock %}

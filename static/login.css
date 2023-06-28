@@ -1,0 +1,9 @@
+main {
+    height: 100%;
+    display: grid;
+    place-items: center;
+}
+
+.login-form {
+    max-width: 400px;
+}

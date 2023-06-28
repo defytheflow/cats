@@ -1,0 +1,110 @@
+{% extends 'layout.html' %}
+
+{% block title %} {{ cat['name'] }} - {{ cat['breed'] }} {% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='cat-profile.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="showcasecat">
+    <div class="cat_image_frame">
+        <img class="cat_image" src="{{ url_for('static', filename='photos/' + cat['photo']) }}">
+    </div>
+
+    <h3>ИМЯ: <br>{{cat['name']}}</h3>
+    <div>
+        Пол: <br>
+        {% if cat['gender'] == 'М' %} Мужской {% else %} Женский {% endif %}
+    </div>
+    <div>
+        Дата рождения:<br>
+        {{cat['birth_date']}}
+    </div>
+    <div>
+        Город Проживания:<br>
+        {{cat['city']}}
+    </div>
+    <div>
+        Доп. Информация:
+        {{cat['detail']}}
+    </div>
+</div>
+
+<div class="cats-groups">
+    <div class="cats-group">
+        <h2>Возможные кандидаты:</h2>
+        <div class="cats-group-list">
+               {%for maybe_cat in maybe_cats %}
+            <div class="catsinfo">
+            {{ maybe_cat['name'] }}<br>
+            {{ maybe_cat['breed'] }}<br>
+            {{ maybe_cat['gender'] }}<br>
+            <a href="{{ url_for('cat_profile', cat_id=maybe_cat['id']) }}">Страница: {{ maybe_cat['name'] }}</a>
+           <img class="cats-image" src="{{ url_for('static', filename='photos/' + cat['photo']) }}"  width="200" height="100">
+            <form method="post" action="{{ url_for('add_maybe', cat_id=cat['id'], liked_cat_id=maybe_cat['id']) }}">
+                    <button type="submit">Добавить</button>
+            </form>
+            </div>
+
+        {% endfor %}
+        </div>
+
+    </div>
+
+    <div class="cats-group">
+        <h2>Понравившиеся кандидаты:</h2>
+        <div class="cats-group-list">
+              {% for liked_cat in liked_cats %}
+        <div class="catsinfo">
+            {{ liked_cat['name'] }}<br>
+            {{ liked_cat['breed'] }}<br>
+            {{ liked_cat['gender'] }}<br>
+            <a href="{{ url_for('cat_profile', cat_id=cat['id']) }}">Страница: {{ liked_cat['name'] }}</a>
+           <img class="cats-image" src="{{ url_for('static', filename='photos/' + liked_cat['photo']) }}"  width="200" height="100">
+        </div>
+        {% endfor %}
+        </div>
+
+    </div>
+
+    <div class="cats-group">
+        <h2>Ждут вашей оценки:</h2>
+        <div class="cats-group-list">
+             {% for asked_cat in asked_cats %}
+        <div class="catsinfo">
+            {{ asked_cat['name'] }}<br>
+            {{ asked_cat['breed'] }}<br>
+            {{ asked_cat['gender'] }}<br>
+            <a href="{{ url_for('cat_profile', cat_id=cat['id']) }}">Страница: {{ asked_cat['name'] }}</a>
+           <img class="cats-image" src="{{ url_for('static', filename='photos/' + cat['photo']) }}"  width="200" height="100">
+
+            <form method="post" action="{{ url_for('add_maybe', cat_id=cat['id'], liked_cat_id=asked_cat['id']) }}">
+                <button type="submit">Добавить</button>
+            </form>
+        </div>
+        {% endfor %}
+            </div>
+
+    </div>
+
+    <div class="cats-group">
+        <h2>Пара:</h2>
+        <div class="cats-group-list">
+             {% for matched_cat in matched_cats %}
+        <div class="catsinfo">
+            {{ matched_cat['name'] }}<br>
+            {{ matched_cat['breed'] }}<br>
+            {{ matched_cat['gender'] }}<br>
+            {{ matched_cat['owner_phone']}}
+            <a href="{{ url_for('cat_profile', cat_id=cat['id']) }}">Страница: {{ matched_cat['name'] }}</a>
+           <img class="cats-image" src="{{ url_for('static', filename='photos/' + matched_cat['photo']) }}"  width="200" height="100">
+
+        </div>
+        {% endfor %}
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

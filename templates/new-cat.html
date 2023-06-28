@@ -1,0 +1,68 @@
+ {% extends 'layout.html' %}
+
+{% block title %} Добавить Нового Кота {% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='new-cat.css') }}">
+{% endblock %}
+
+{% block body %}
+ <main>
+     <div class="form create-form">
+        <h1 class="form-heading">Добавить нового кота:</h1>
+        <div class="error">{{error}}</div>
+
+         <form action="{{ url_for('new_cat') }}" method="post" enctype="multipart/form-data">
+        <div>
+            <label for="name">Имя:</label>
+            <input type="text" class="form-input" name="name" id="name" required>
+        </div>
+
+        <div>
+            <label for="breed">Порода</label>
+            <select id="courses" name="breed" id="breed">
+                {% for breed in breeds %}
+                    <option value="{{ breed['name'] }}">{{ breed['name'] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <fieldset>
+                <summary>Пол:</summary>
+                <div>
+                    <input type="radio" id="male" value="М" name="gender">
+                    <label for="male" class="light">М</label>
+                    <input type="radio" id="female" value="Ж" name="gender">
+                    <label for="female" class="light">Ж</label>
+                </div>
+            </fieldset>
+        </div>
+
+        <div>
+            <label for="date_of_birth">Дата рождения кота:</label>
+            <input type="date" class="form-input" name="date_of_birth" id="date_of_birth" required>
+        </div>
+
+        <div>
+            <label for="contact_phone">Контактный телефон:<br></label>
+            +7<input type="tel" class="form-input" name="contact_phone" id="contact_phone" required>
+        </div>
+        <div>
+            <label for="city">Город:</br></label>
+            <input type="text" class="form-input" name="city" id="city" required>
+        </div>
+        <div>
+            <label for="comments">Допполнительная инофрмация:</label>
+            <textarea name="comments" id='comments' cols="40" rows="3"></textarea>
+        </div>
+        <div>
+            <label for="photo">Фотография:</label>
+            <input type="file" name="photo" id="photo" class='form-input' accept="image/*" />
+        </div>
+
+        <button type="submit" class="form-submit">Загрузить</button>
+    </form>
+</div>
+ </main>
+{% endblock %}

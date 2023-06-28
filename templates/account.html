@@ -1,0 +1,37 @@
+ {% extends 'layout.html' %}
+
+{% block title %} Личный Кабинет ({{ g.user['login'] }}) {% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='account.css') }}">
+{% endblock %}
+
+{% block body %}
+
+<div class="account_holder">
+
+    <form method="post" action="{{ url_for('logout') }}" class="forms">
+        Профиль: {{ g.user['login'] }} <button type="submit" class="exit_button" style="height:30px;width:100px">Выйти</button>
+    </form>
+</div>
+
+<div class="add_new_cat">
+    <a href="{{ url_for('new_cat') }}">Добавить Кошку</a>
+</div>
+<div class="hed_cat">Ваши Коты:</div>
+<div class="prosmotr">
+
+    {% for cat in cats %}
+        <div class="catsinfo">
+            {{ cat['name'] }}<br>
+            {{ cat['breed'] }}<br>
+            {{ cat['gender'] }}<br>
+            <a href="{{ url_for('cat_profile', cat_id=cat['id']) }}">Страница: {{ cat['name'] }}</a>
+           <img class="cats-image" src="{{ url_for('static', filename='photos/' + cat['photo']) }}"  width="200" height="100">
+            <form method="post" action="{{ url_for('delete_cat', cat_id=cat['id']) }}">
+             <button type="submit" class="exit_button" style="height:30px;width:100px">удалить</button>
+            </form>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,53 @@
+.search-form {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background-color: var(--clr-grey);
+    padding: 1rem;
+}
+
+.search-label {
+    font-size: 1.75rem;
+    position: relative;
+    bottom: 2px;
+}
+
+.search-input {
+    font-size: 1.25rem;
+    min-width: 500px;
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: 0;
+}
+
+.search-btn {
+    padding: 0.35rem 0.75rem;
+    border-radius: 5px;
+    font-size: 1.25rem;
+    cursor: pointer;
+}
+
+.all-cats {
+    padding: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.cats-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    background-color: #D3D3D3;
+    border: 2px solid DimGrey;
+    min-width: 300px;
+    font-size: 1.25rem;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.cats-image {
+    border-radius: 10px;
+}
+

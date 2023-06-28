@@ -1,0 +1,15 @@
+main {
+    height: 100%;
+    display: grid;
+    place-items: center;
+}
+
+fieldset {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+}
+
+.create-form {
+    max-width: 530px;
+}
