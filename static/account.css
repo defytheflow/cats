@@ -1,69 +1,62 @@
-.account_holder{
-    background-color:#D3D3D3;
-    border: 2px solid DimGrey;
-    width: 500px;
-    height: 50px;
-    font-size: 40px;
-
-}
-.hed_cat{
-    text-align:center;
-    width: 200px;
-    height: 50px;
-    background-color:#C0C0C0;
-    position:relative;
-    background-color:#C0C0C0;
-    margin:auto;
-    font-size: 2rem;
-}
-.prosmotr{
-    align-items: center;
-    max-width: 1300px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    padding: 1rem;
-    margin-bottom: 0.5rem;
-    background-color: #C0C0C0;
-    margin-left: auto;
-    margin-right: auto;
-    left: auto;
-    font-size: 30px;
-    text-align: center;
-    margin-bottom: 100px;
-    position:relative;
+.account_holder {
+  display: flex;
+  align-items: center;
+  background-color: #d3d3d3;
+  gap: 1rem;
+  padding: 0 1rem;
+  border: 2px solid DimGrey;
+  font-size: 1.5rem;
 }
 
-.catsinfo{
-   background-color: #D3D3D3;
-   border: 2px solid DimGrey;
-   width: 300px;
-   font-size: 20px;
-   padding: 10px;
-   text-align: center;
-
+.hed_cat {
+  text-align: center;
+  width: 200px;
+  height: 50px;
+  background-color: #c0c0c0;
+  background-color: #c0c0c0;
+  margin: auto;
+  font-size: 2rem;
 }
-.exit_button{
-background-color:red;
-color: white;
-border-radius: 5px;
-bottom:8px;
-position:relative;
 
-
-
+.prosmotr {
+  align-items: center;
+  max-width: 1300px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  background-color: #c0c0c0;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 30px;
+  text-align: center;
+  margin-bottom: 100px;
 }
-.forms{
-position:relative;
-bottom: 6px;
-left: 13px;
+
+.catsinfo {
+  background-color: #d3d3d3;
+  border: 2px solid DimGrey;
+  width: 300px;
+  font-size: 20px;
+  padding: 10px;
+  text-align: center;
 }
-.add_new_cat{
-background-color: #D3D3D3;
-font-size: 30px;
-height: 40px;
-width: 300px;
-padding-left: 50px;
-border: 2px DimGrey solid;
-padding-bottom:10px;
+
+.exit_button {
+  background-color: red;
+  color: white;
+  border-radius: 5px;
+  height: 30px;
+  width: 100px;
+}
+
+.add_new_cat {
+  background-color: #d3d3d3;
+  font-size: 30px;
+  height: 40px;
+  width: 300px;
+  padding-left: 50px;
+  border: 2px DimGrey solid;
+  padding-bottom: 10px;
 }

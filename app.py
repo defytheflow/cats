@@ -1,12 +1,13 @@
 import os
+from http import HTTPStatus
 
+from dotenv import load_dotenv
 from flask import Flask, render_template, request, redirect, url_for, session, abort, g
 from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
-from dotenv import load_dotenv
 
-from db import get_db, close_db
 from auth import login_required
+from db import get_db, close_db
 
 load_dotenv()
 
@@ -46,9 +47,13 @@ def index():
         SELECT
             cats.id,
             cats.name,
-            cats.gender,
             breeds.name AS breed,
-            photos.photo_name AS photo
+            photos.photo_name AS photo,
+            CASE
+                WHEN cats.gender = 'М' THEN 'Мужской'
+                WHEN cats.gender = 'Ж' THEN 'Женский'
+                ELSE ''
+            END AS gender
         FROM
             cats
         INNER JOIN
@@ -164,9 +169,13 @@ def account():
             SELECT
                 cats.id,
                 cats.name,
-                cats.gender,
                 breeds.name AS breed,
-                photos.photo_name AS photo
+                photos.photo_name AS photo,
+                CASE
+                    WHEN cats.gender = 'М' THEN 'Мужской'
+                    WHEN cats.gender = 'Ж' THEN 'Женский'
+                    ELSE ''
+                END AS gender
             FROM
                 cats
             INNER JOIN
@@ -186,7 +195,7 @@ def account():
     return render_template("account.html", cats=cats)
 
 
-@app.route("/new_cat", methods=("GET", "POST"))
+@app.route("/cats/new", methods=("GET", "POST"))
 @login_required
 def new_cat():
     error = ""
@@ -241,7 +250,7 @@ def new_cat():
                 ).fetchone()
 
                 db.execute(
-                    """INSERT INTO photos (cat_id, photo_name) VALUES (?, ?)""",
+                    "INSERT INTO photos (cat_id, photo_name) VALUES (?, ?)",
                     (cat["id"], photo.filename),
                 )
                 db.commit()
@@ -275,7 +284,6 @@ def cat_profile(cat_id):
         SELECT
             cats.id,
             cats.name,
-            cats.gender,
             cats.birth_date,
             cats.comments AS detail,
             cats.user_id,
@@ -283,7 +291,12 @@ def cat_profile(cat_id):
             cats.breed_id,
             cats.owner_phone,
             breeds.name AS breed,
-            photos.photo_name AS photo
+            photos.photo_name AS photo,
+            CASE
+                WHEN cats.gender = 'М' THEN 'Мужской'
+                WHEN cats.gender = 'Ж' THEN 'Женский'
+                ELSE ''
+            END AS gender
         FROM
             cats
         INNER JOIN
@@ -301,7 +314,7 @@ def cat_profile(cat_id):
     ).fetchone()
 
     if cat is None:
-        abort(404)
+        abort(HTTPStatus.NOT_FOUND)
 
     if cat["user_id"] != g.user["id"]:
         return render_template("cat-profile.html", cat=cat)
@@ -333,12 +346,16 @@ def cat_profile(cat_id):
        SELECT
            cats.id,
            cats.name,
-           cats.gender,
            cats.comments AS detail,
            cats.city,
            cats.owner_phone,
            breeds.name AS breed,
-           photos.photo_name AS photo
+           photos.photo_name AS photo,
+            CASE
+                WHEN cats.gender = 'М' THEN 'Мужской'
+                WHEN cats.gender = 'Ж' THEN 'Женский'
+                ELSE ''
+            END AS gender
        FROM
            cats
        INNER JOIN
@@ -371,11 +388,15 @@ def cat_profile(cat_id):
           SELECT
               cats.id,
               cats.name,
-              cats.gender,
               cats.comments AS detail,
               cats.city,
               breeds.name AS breed,
-              photos.photo_name AS photo
+              photos.photo_name AS photo,
+                CASE
+                    WHEN cats.gender = 'М' THEN 'Мужской'
+                    WHEN cats.gender = 'Ж' THEN 'Женский'
+                    ELSE ''
+                END AS gender
           FROM
               cats
           INNER JOIN
@@ -417,21 +438,38 @@ def add_maybe(cat_id, liked_cat_id):
     return redirect(url_for("cat_profile", cat_id=cat_id))
 
 
-@app.route("/delete_cat/<int:cat_id>", methods=("POST",))
+@app.route("/cats/delete/<int:cat_id>", methods=("POST",))
 @login_required
 def delete_cat(cat_id):
     db = get_db()
+
+    result = db.execute(
+        "SELECT 1 FROM cats WHERE id = ? AND user_id = ?",
+        (cat_id, g.user["id"]),
+    ).fetchone()
+
+    if result is None:
+        abort(HTTPStatus.FORBIDDEN)
+
     db.execute(
         "DELETE from likes where main_cat_id = ? OR liked_cat_id = ?",
         (cat_id, cat_id),
     )
+
     photos = db.execute("SELECT * from photos WHERE cat_id = ?", (cat_id,)).fetchall()
     db.execute("DELETE FROM photos WHERE cat_id = ?", (cat_id,))
+
     for photo in photos:
         try:
-            os.remove(f'/static/photos/{photo["photo_name"]}')
-        except Exception:
+            os.remove(os.path.join(app.config["UPLOAD_FOLDER"], photo["photo_name"]))
+        except FileNotFoundError:
             pass
+        except PermissionError:
+            pass
+        except OSError:
+            pass
+
     db.execute("DELETE FROM cats WHERE id = ?", (cat_id,))
     db.commit()
+
     return redirect(url_for("account"))

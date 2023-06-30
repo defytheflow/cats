@@ -10,21 +10,18 @@
   <main>
       <form class="search-form">
           <label for="search" class="search-label">Поиск</label>
-          <input class="search-input" type="search" name="search" id="search" value="{{
-          search }}">
+          <input class="search-input" type="search" name="search" id="search" value="{{ search }}">
           <button type="submit" class="search-btn">Найти</button>
       </form>
       <div class="all-cats">
           {% for cat in cats %}
-                <div class="cats-info">
-                    <p>
-                         Кличка: {{ cat['name'] }}<br>
-                        Порода: {{ cat['breed'] }}<br>
-                        Пол: {% if cat['gender'] == 'М' %} Мужской {% else %} Женский {% endif %}
-                    </p>
-                    <img class="cats-image" src="{{ url_for('static', filename='photos/' + cat['photo']) }}"  width="200" height="100">
-                    <a href="{{ url_for('cat_profile', cat_id=cat['id']) }}">Страница: {{ cat['name'] }}</a>
-                </div>
+              <div class="cats-info">
+                  <div>Кличка: {{ cat.name }}</div>
+                  <div>Порода: {{ cat.breed }}</div>
+                  <div>Пол: {{ cat.gender }}</div>
+                  <img class="cats-image" src="{{ url_for('static', filename='photos/' + cat.photo) }}"  width="200" height="100">
+                  <a href="{{ url_for('cat_profile', cat_id=cat.id) }}">Страница: {{ cat.name }}</a>
+              </div>
           {% endfor %}
       </div>
   </main>

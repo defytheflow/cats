@@ -14,7 +14,7 @@
     <nav class="head-space">
       <a href="{{ url_for('index') }}">Главная</a>
         {% if g.user %}
-            <a href="{{ url_for('account') }}">Личный Кабинет ({{ g.user['login'] }})</a>
+            <a href="{{ url_for('account') }}">Личный Кабинет ({{ g.user.login }})</a>
         {% else %}
             <a href="{{ url_for('login') }}">Войти</a>
             <a href="{{ url_for('register') }}">Регистрация</a>

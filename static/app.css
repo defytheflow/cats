@@ -1,71 +1,72 @@
-html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    --clr-grey: #BEBDB8;
-    --clr-red: #ff595e;
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  --clr-grey: #bebdb8;
+  --clr-red: #ff595e;
 }
 
 body {
-    font-family: 'Noto Sans JP', sans-serif;
+  font-family: "Noto Sans JP", sans-serif;
 }
 
 .error {
-    color: red;
-    font-size: 1rem;
+  color: red;
+  font-size: 1rem;
 }
 
 .head-space {
-    font-size: 1.75rem;
-    padding: 1.5rem;
-    text-align: right;
-    background-color: var(--clr-red);
+  font-size: 1.75rem;
+  padding: 1.5rem;
+  text-align: right;
+  background-color: var(--clr-red);
 }
 
 .head-space a {
-    color: black;
-    margin-left: 1rem;
-    text-decoration: none;
-    text-underline-offset: 2px;
+  color: black;
+  margin-left: 1rem;
+  text-decoration: none;
+  text-underline-offset: 2px;
 }
 
 .head-space a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .form {
-    border-radius: 15px;
-    background-color: var(--clr-grey);
-    font-size: 1.5rem;
-    text-align: center;
-    border: 5px solid black;
-    padding: 24px;
+  border-radius: 15px;
+  background-color: var(--clr-grey);
+  font-size: 1.5rem;
+  text-align: center;
+  border: 5px solid black;
+  padding: 24px;
 }
 
 .form-heading {
-    font-size: 2rem;
+  font-size: 2rem;
 }
 
 .form-input {
-    font-size: 1.25rem;
-    min-width: 300px;
-    padding: 8px;
-    border-radius: 5px;
-    margin: 0.75rem 0;
+  font-size: 1.25rem;
+  min-width: 300px;
+  padding: 8px;
+  border-radius: 5px;
+  margin: 0.75rem 0;
 }
 
 .form-submit {
-    border-radius: 20px;
-    background-color: white;
-    font-size: 1.25rem;
-    padding: 12px 16px;
-    cursor: pointer;
-    width: 200px;
-    height: 70px;
-    margin-bottom: 1rem;
+  border-radius: 20px;
+  background-color: white;
+  font-size: 1.25rem;
+  padding: 12px 16px;
+  cursor: pointer;
+  width: 200px;
+  height: 70px;
+  margin-bottom: 1rem;
 }
 
 .form-submit:hover {
-   background-color: grey;
-   transition: 1s;
+  background-color: grey;
+  transition: 1s;
 }

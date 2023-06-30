@@ -22,7 +22,7 @@
             <label for="breed">Порода</label>
             <select id="courses" name="breed" id="breed">
                 {% for breed in breeds %}
-                    <option value="{{ breed['name'] }}">{{ breed['name'] }}</option>
+                    <option value="{{ breed.name }}">{{ breed.name }}</option>
                 {% endfor %}
             </select>
         </div>
@@ -53,7 +53,7 @@
             <input type="text" class="form-input" name="city" id="city" required>
         </div>
         <div>
-            <label for="comments">Допполнительная инофрмация:</label>
+            <label for="comments">Дополнительная инофрмация:</label>
             <textarea name="comments" id='comments' cols="40" rows="3"></textarea>
         </div>
         <div>
